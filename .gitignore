@@ -336,3 +336,6 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 .vscode/settings.json
+
+# .venv virtual environment
+.venv/
