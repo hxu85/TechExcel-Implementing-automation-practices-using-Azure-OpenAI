@@ -14,7 +14,8 @@ builder.Services.AddSingleton<ICosmosService, CosmosService>();
 builder.Services.AddSingleton<CosmosClient>((_) =>
 {
     CosmosClient client = new(
-        connectionString: builder.Configuration["AZURE_COSMOS_DB_CONNECTION_STRING"]!
+        //connectionString: builder.Configuration["AZURE_COSMOS_DB_CONNECTION_STRING"]! // use this line when pulling from appsettings.Development.json
+        connectionString: Environment.GetEnvironmentVariable("AZURE_COSMOS_DB_CONNECTION_STRING")! // use this line when pulling from environment variables
     );
     return client;
 });

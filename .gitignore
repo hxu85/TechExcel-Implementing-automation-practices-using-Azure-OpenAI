@@ -341,8 +341,8 @@ ASALocalRun/
 .venv/
 
 # config.json for Python Streamlit
-./src/ContosoSuitesDashboard/config.json
+src/ContosoSuitesDashboard/config.json
 
 # appsettings.json for .NET Core
-./src/ContosoSuitesWebAPI/appsettings.json
-./src/ContosoSuitesWebAPI/appsettings.Development.json
+src/ContosoSuitesWebAPI/appsettings.json
+src/ContosoSuitesWebAPI/appsettings.Development.json

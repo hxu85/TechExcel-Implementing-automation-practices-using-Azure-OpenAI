@@ -1,0 +1,54 @@
+trigger:
+- main
+
+variables:
+  dockerRegistryServiceConnection: 'DockerHub'  # Update this to your Docker Hub service connection name
+  imageRepository: 'contososuitewebapi'
+  containerRegistry: 'yourdockerhubusername'  # Update this to your Docker Hub username
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: $(tag)
+
+- stage: Deploy
+  displayName: Deploy stage
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: 'production'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Your Azure Subscription'  # Update this to your Azure subscription name
+              appType: 'webAppContainer'
+              WebAppName: 'Your App Service Name'  # Update this to your App Service name
+              deployToSlotOrASE: true
+              ResourceGroupName: 'Your Resource Group Name'  # Update this to your resource group name
+              DockerNamespace: $(containerRegistry)
+              DockerRepository: $(imageRepository)
+              DockerImageTag: $(tag)
