@@ -3,7 +3,12 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
+  paths:
+    include:
+      - ./src/ContosoSuitesWebAPI/*
+  branches:
+    include:
+      - main
 
 resources:
 - repo: self
@@ -11,9 +16,9 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '6aed66dc-d3cc-48d2-9f53-f23a7554863c'
-  imageRepository: 'techexcelopenaicustomerfunction'
+  imageRepository: 'ContosoSuitesWebAPI'
   containerRegistry: 'acrrwlsharedprmeu1.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/src/ContosoSuiteWebAPI/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
