@@ -18,7 +18,7 @@ variables:
   dockerRegistryServiceConnection: '6aed66dc-d3cc-48d2-9f53-f23a7554863c'
   imageRepository: 'ContosoSuitesWebAPI'
   containerRegistry: 'acrrwlsharedprmeu1.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/src/ContosoSuiteWebAPI/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/src/ContosoSuiteWebAPI/.dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
