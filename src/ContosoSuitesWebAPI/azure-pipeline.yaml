@@ -1,10 +1,16 @@
 trigger:
-- main
+  paths:
+    include:
+      - ContosoSuiteWebAPI/*
+  branches:
+    include:
+      - main
+
 
 variables:
-  dockerRegistryServiceConnection: 'DockerHub'  # Update this to your Docker Hub service connection name
+  dockerRegistryServiceConnection: 'acrrwlsharedprmeu1'  # Update this to your Docker Hub service connection name
   imageRepository: 'contososuitewebapi'
-  containerRegistry: 'yourdockerhubusername'  # Update this to your Docker Hub username
+  containerRegistry: 'acrrwlsharedprmeu1'  # Update this to your Docker Hub name
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
